@@ -66,5 +66,18 @@ export default class BooksController {
         return res.status(200).json({book});
     }
 
-    
+    public async deleteBook(req:NextApiRequest, res:NextApiResponse){
+        console.log("This route will delete a book");
+        const {id} = req.query;
+        let book:any;
+        try{
+            book = await Book.findByIdAndDelete(id);
+        }catch(e){
+            console.error(e);
+        }
+        if(!book){
+            return res.status(404).json({message: "Unable to delete book"});
+        }
+        return res.status(200).json({message: "Book deleted successfully"});
+    }
 }
