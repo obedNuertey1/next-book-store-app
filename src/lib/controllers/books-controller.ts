@@ -19,5 +19,19 @@ export default class BooksController {
         return res.status(200).json(books);
     }
 
+    public async addBook(req:NextApiRequest, res:NextApiResponse){
+        console.log("This route will add a book");
+        const {name, author, description, price, image, available} = req.body;
+        let book:any;
+        try{
+            book = await Book.create({name, author, description, price, image, available});
+        }catch(e){
+            console.error(e);
+        }
+        if(!book){
+            return res.status(404).json({message: "Book not added"});
+        }
+        return res.status(200).json(book);
+    }
     
 }
