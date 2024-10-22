@@ -49,4 +49,22 @@ export default class BooksController {
         }
         return res.status(200).json(book);
     }
+
+    public async updateBook(req:NextApiRequest, res:NextApiResponse){
+        console.log("This route will update a book");
+        const {id} = req.query;
+        const {name, author, description, price, image, available} = req.body;
+        let book:any;
+        try{
+            book = await Book.findByIdAndUpdate(id, {name, author, description, price, image, available});
+        }catch(e){
+            console.log(e);
+        }
+        if(!book){
+            return res.status(404).json({message: "Unable to update book"});
+        }
+        return res.status(200).json({book});
+    }
+
+    
 }
