@@ -34,4 +34,19 @@ export default class BooksController {
         return res.status(200).json(book);
     }
     
+    public async getBookById(req:NextApiRequest, res:NextApiResponse){
+        console.log("This route will get a book by id");
+        const {id} = req.query;
+        let book:any;
+        try{
+            book = await Book.findById(id);
+
+        } catch(e){
+            console.log(e);
+        }
+        if(!book){
+            return res.status(404).json({message: "Book not found"});
+        }
+        return res.status(200).json(book);
+    }
 }
