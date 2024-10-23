@@ -8,3 +8,7 @@ const Book = new BookController(db);
 export async function GET(req: NextRequest) {
     return await Book.getAllBooks(req);
 }
+
+export async function POST(req: NextRequest){
+    return await Book.addBook(req);
+}
