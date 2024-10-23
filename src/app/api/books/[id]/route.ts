@@ -8,3 +8,7 @@ const Book = new BookController(db);
 export async function GET(req: NextRequest, {params}: {params: {id: string}}) {
     return await Book.getBookById(req, {params});
 }
+
+export async function PUT(req: NextRequest, {params}: {params: {id: string}}){
+    return await Book.updateBook(req, {params});
+}
