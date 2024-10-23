@@ -1,27 +1,29 @@
 import Book from "../models/Book";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
+import {MongooseConnect} from "../mongoose";
 
 export default class BooksController {
-    constructor(){};
+    constructor(private db: MongooseConnect){};
 
-    public async getAllBooks(req: NextApiRequest, res: NextApiResponse) {
+    public async getAllBooks(req: NextRequest) {
+        await this.db.connect();
         console.log("This route will provide all the books");
         let books:any;
-
         try{
             books = await Book.find();
         }catch(e){
             console.error(e);
         }
         if(!books){
-            return res.status(404).json({message: "No books found"});
+            return NextResponse.json({message: "No books found"}, {status: 404})
         }
-        return res.status(200).json(books);
+        return NextResponse.json(books);
     }
 
-    public async addBook(req:NextApiRequest, res:NextApiResponse){
+    public async addBook(req:NextRequest){
+        await this.db.connect();
         console.log("This route will add a book");
-        const {name, author, description, price, image, available} = req.body;
+        const {name, author, description, price, image, available} = await req.json();
         let book:any;
         try{
             book = await Book.create({name, author, description, price, image, available});
@@ -29,14 +31,15 @@ export default class BooksController {
             console.error(e);
         }
         if(!book){
-            return res.status(404).json({message: "Book not added"});
+            return NextResponse.json({message: "Book not added"}, {status: 404});
         }
-        return res.status(200).json(book);
+        return NextResponse.json({book}, {status: 200});
     }
     
-    public async getBookById(req:NextApiRequest, res:NextApiResponse){
+    public async getBookById(req:NextRequest, {params}: {params: {id: string}}){
+        await this.db.connect();
         console.log("This route will get a book by id");
-        const {id} = req.query;
+        const {id} =  params;
         let book:any;
         try{
             book = await Book.findById(id);
@@ -45,15 +48,16 @@ export default class BooksController {
             console.log(e);
         }
         if(!book){
-            return res.status(404).json({message: "Book not found"});
+            return NextResponse.json({message: "Book not found"}, {status: 404})
         }
-        return res.status(200).json(book);
+        return NextResponse.json({book}, {status: 200});
     }
 
-    public async updateBook(req:NextApiRequest, res:NextApiResponse){
+    public async updateBook(req:NextRequest, {params}: {params: {id: string}}){
+        await this.db.connect();
         console.log("This route will update a book");
-        const {id} = req.query;
-        const {name, author, description, price, image, available} = req.body;
+        const {id} = params;
+        const {name, author, description, price, image, available} = await req.json();
         let book:any;
         try{
             book = await Book.findByIdAndUpdate(id, {name, author, description, price, image, available});
@@ -61,14 +65,15 @@ export default class BooksController {
             console.log(e);
         }
         if(!book){
-            return res.status(404).json({message: "Unable to update book"});
+            return NextResponse.json({message: "Unable to update book"}, {status: 404});
         }
-        return res.status(200).json({book});
+        return NextResponse.json({book}, {status: 200});
     }
 
-    public async deleteBook(req:NextApiRequest, res:NextApiResponse){
+    public async deleteBook(req:NextRequest, {params}: {params: {id: string}}){
+        await this.db.connect();
         console.log("This route will delete a book");
-        const {id} = req.query;
+        const {id} = params;
         let book:any;
         try{
             book = await Book.findByIdAndDelete(id);
@@ -76,8 +81,8 @@ export default class BooksController {
             console.error(e);
         }
         if(!book){
-            return res.status(404).json({message: "Unable to delete book"});
+            return NextResponse.json({message: "Unable to delete book"}, {status: 404});
         }
-        return res.status(200).json({message: "Book deleted successfully"});
+        return NextResponse.json({message: "Book deleted successfully"}, {status: 200});
     }
 }

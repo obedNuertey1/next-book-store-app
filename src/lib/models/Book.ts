@@ -1,4 +1,13 @@
-import mongoose from "mongoose";
+import mongoose, {Document, Model, Schema} from "mongoose";
+
+interface IBook extends Document{
+    name: string;
+    author: string;
+    description: string;
+    price: number;
+    image: string;
+    available: boolean;
+}
 
 const bookSchema = new mongoose.Schema({
     name: {
@@ -26,4 +35,4 @@ const bookSchema = new mongoose.Schema({
     }
 });
 
-export default mongoose.model("Book", bookSchema);
+export default (mongoose.models.Book as Model<IBook>) || mongoose.model<IBook>("Book", bookSchema);
