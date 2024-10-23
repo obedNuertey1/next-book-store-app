@@ -1,6 +1,6 @@
-import Book from "../models/Book";
+import Book from "@/lib/models/Book";
 import { NextRequest, NextResponse } from "next/server";
-import {MongooseConnect} from "../mongoose";
+import {MongooseConnect} from "@/lib/mongoose";
 
 export default class BooksController {
     constructor(private db: MongooseConnect){};

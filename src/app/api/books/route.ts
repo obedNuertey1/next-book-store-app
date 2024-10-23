@@ -1,6 +1,6 @@
-import BookController from "../../../lib/controllers/books-controller";
+import BookController from "@/lib/controllers/books-controller";
 import {NextRequest} from "next/server";
-import {MongooseConnect} from "../../../lib/mongoose";
+import {MongooseConnect} from "@/lib/mongoose";
 
 const db = new MongooseConnect(process.env.MONGO_URI!);
 const Book = new BookController(db);
