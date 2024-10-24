@@ -1,3 +1,4 @@
+"use server";
 import { Box, Link, Typography } from "@mui/material";
 import "./About.css";
 
@@ -21,5 +22,7 @@ const About = () => {
     </div>
   );
 };
+
+About.name = "About";
 
 export default About;
