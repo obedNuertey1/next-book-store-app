@@ -1,6 +1,7 @@
+"use server";
 import { Button } from "@mui/material";
 import './Book.css';
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import axios from "axios";
 
 const Books = (props:any) => {
@@ -26,6 +27,8 @@ const Books = (props:any) => {
       </div>
     </div>
   );
-};  
+};
+
+Books.name = "Books";
 
 export default Books;
