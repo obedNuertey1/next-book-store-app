@@ -1,3 +1,4 @@
+"use client";
 import { AppBar, Tab, Tabs, Toolbar, Typography } from '@mui/material';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import React from 'react';
@@ -29,5 +30,7 @@ const Header = () => {
     </AppBar>
   );
 };
+
+Header.name = "Header";
 
 export default Header;
