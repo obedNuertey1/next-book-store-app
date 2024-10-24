@@ -1,3 +1,4 @@
+"use client";
 import { Box, Button, Checkbox, FormControlLabel, FormLabel, IconButton, Snackbar, TextField, useMediaQuery } from "@mui/material";
 import axios from "axios";
 import React from "react";
@@ -169,5 +170,7 @@ const AddBook = () => {
     </>
   );
 };  
+
+AddBook.name = "AddBook";
 
 export default AddBook;
