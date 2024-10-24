@@ -1,0 +1,22 @@
+.tech-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    list-style: none;
+}
+
+.tech-list li{
+    text-align: center  ;
+    background-color: #232F3D;
+    color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    margin: 1rem;
+    box-shadow: 5px 5px 10px #ccc;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
