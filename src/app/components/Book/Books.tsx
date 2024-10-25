@@ -1,35 +1,36 @@
 "use client";
 import axios from 'axios';
 import {useEffect, useState} from 'react';
-import Book from './Book';
+import Book from '@/app/components/Book/Book';
 import "./Book.css"
 
 const URL:string = `/api/books`
 
 const fetchHandler = async () => {
-  return await axios.get(URL).then((response) => (
-    response.data
-  ));
+  return await axios.get(URL).then((response) => {
+    return response
+});
 }
 
 const Books = () => {
   const [books, setBooks] = useState([]);
   const fetcher = () => {
-    fetchHandler().then((data:any)=>{
-      setBooks(data.books);
+    fetchHandler().then((res:any)=>{
+        console.log(res.data)
+      setBooks(res.data);
     })
   }
   useEffect(()=>{
     fetcher();
   }, []);
-  console.log(books)
+//   console.log(books)
   
   return (
-    <div>
+    <div className='mb-6'>
       <ul>
-        {books.map((book:any, index:number) => (
+        {books.map((elem:any, index:number) => (
           <li className='book' key={index}>
-            <Book book={book} refetchHandler={fetcher} />
+            <Book book={elem} refetchHandler={fetcher} />
           </li>
         ))}
       </ul>
