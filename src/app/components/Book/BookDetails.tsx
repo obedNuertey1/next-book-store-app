@@ -4,7 +4,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import { SnackbarCloseReason } from '@mui/material/Snackbar';
-import { useNavigate } from "react-router-dom";
+import {useRouter} from "next/navigation";
 import useWaiting from "../../hooks/waiting";
 
 type bookState = {
@@ -39,7 +39,7 @@ const BooksDetails = ({params}: {params: {id: string}}) => {
     // console.log({book_name:book.name});
   }, [id]);
   const [waiting, stopWaiting] = useWaiting(1500);
-  const router = useNavigate();
+  const router = useRouter();
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -82,7 +82,7 @@ const BooksDetails = ({params}: {params: {id: string}}) => {
     setSubmitted((prev:boolean)=>(!prev))
     setOpen(true);
     await waiting();
-    router('/books');
+    router.push('/books');
   };
   
   const handleClose = (
@@ -176,7 +176,5 @@ const BooksDetails = ({params}: {params: {id: string}}) => {
     </>
   );
 };
-
-BooksDetails.name = "BooksDetails";
 
 export default BooksDetails;
