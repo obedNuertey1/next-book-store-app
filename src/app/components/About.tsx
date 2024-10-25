@@ -23,6 +23,4 @@ const About = () => {
   );
 };
 
-About.name = "About";
-
 export default About;

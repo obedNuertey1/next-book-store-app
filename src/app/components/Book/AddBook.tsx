@@ -171,6 +171,4 @@ const AddBook = () => {
   );
 };  
 
-AddBook.name = "AddBook";
-
 export default AddBook;
