@@ -4,9 +4,10 @@ import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import React from 'react';
 import Link from "next/link";
 
-const Header = () => { 
+const HeaderComponent = () => { 
   const [value, setValue] = React.useState(0);
   return (
+    <>
     <AppBar role="header" sx={{backgroundColor: "#232F3D"}} position="sticky">
       <Toolbar>
         <Link href={"/"} style={{color: "unset"}} >
@@ -28,9 +29,8 @@ const Header = () => {
         </Tabs>
       </Toolbar>
     </AppBar>
+    </>
   );
 };
 
-Header.name = "Header";
-
-export default Header;
+export default HeaderComponent;
