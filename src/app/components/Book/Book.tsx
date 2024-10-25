@@ -1,10 +1,10 @@
-"use server";
+"use client";
 import { Button } from "@mui/material";
 import './Book.css';
 import Link from "next/link";
 import axios from "axios";
 
-const Books = (props:any) => {
+const Book = (props:any) => {
   // @ts-ignore
   const {_id, name, author, description, price, image} = props.book;
   const {refetchHandler} = props;
@@ -14,7 +14,7 @@ const Books = (props:any) => {
   }
   
   return (
-    <div className="card">
+    <div className="next-card">
       <img width={200} height={200} src={image} alt={name} />
       <article>By {author}</article>
       <h3>{name}</h3>
@@ -22,13 +22,12 @@ const Books = (props:any) => {
       <h2>GH₵ {price}</h2>
       <div>
         {/* @ts-ignore */}
-        <Button LinkComponent={Link} to={`/books/${_id}`} sx={{mt: "auto"}}>Update</Button>
+        <Button LinkComponent={Link} href={`/books/${_id}`} sx={{mt: "auto"}}>Update</Button>
         <Button sx={{mt: "auto"}} onClick={deleteHandler}>Delete</Button>
       </div>
     </div>
   );
 };
 
-Books.name = "Books";
 
-export default Books;
+export default Book;
